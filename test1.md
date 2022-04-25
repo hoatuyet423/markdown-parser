@@ -1,1 +1,1 @@
-[link][random.com]
+[link](rando()m.com)

@@ -11,22 +11,31 @@ public class MarkdownParse {
         ArrayList<String> toReturn = new ArrayList<>();
         // find the next [, then find the ], then find the (, then read link upto next )
         int currentIndex = 0;
-        while(currentIndex < markdown.length()) {
+        int openBracket = 0; 
+        int closeBracket = 0; 
+        int openParen = 0; 
+        int closeParen = 0;
+
+        while(currentIndex < markdown.length() 
+                && openBracket != -1 
+                && closeBracket != -1
+                && openParen != -1
+                && closeParen != -1) {
+                    
+            System.out.println("current Index: " + currentIndex);
+            openBracket = markdown.indexOf("[", currentIndex);
+            closeBracket = markdown.indexOf("]", openBracket);
+            openParen = markdown.indexOf("(", closeBracket);
+            closeParen = markdown.indexOf(")", openParen);
+            System.out.println("openBracket: " + openBracket);
+            System.out.println("closeBracket: " + closeBracket);
+            System.out.println("openParen: " + openParen);
+            System.out.println("closeParen: " + closeParen);
             if (markdown.indexOf("\n") == currentIndex){
-                //System.out.println("Code break here");
                 break;
             }
-            int openBracket = markdown.indexOf("[", currentIndex);
-            int closeBracket = markdown.indexOf("]", openBracket);
-            int openParen = markdown.indexOf("(", currentIndex);
-            int closeParen = markdown.indexOf(")", openParen);
-            //System.out.println("openBracket: " + openBracket);
-            //System.out.println("closeBracket: " + closeBracket);
-            //System.out.println("openParen: " + openParen);
-            //System.out.println("closeParen: " + closeParen);
             toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1;
-            //System.out.println(currentIndex);
             System.out.println(toReturn.toString());
         }
 
